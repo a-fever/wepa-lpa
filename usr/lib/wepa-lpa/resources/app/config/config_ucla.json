@@ -1,0 +1,20 @@
+{
+  "scId": "228",
+  "scType": "SESSION",
+  "scDescription": "University of California, Los Angeles (UCLA)",
+  "scLocationCode": "UCLA",
+  "scIsVisible": "True",
+  "scUsernameText": "Username",
+  "scPasswordText": "Password",
+  "scShibbolethURL": "https://sp2.wepanow.com/Shibboleth.sso/Login?target=https%3A%2F%2Fsp2.wepanow.com%2Fsecure%2FshowHeaders.php&amp;entityID=urn%3Amace%3Aincommon%3Aucla.edu",
+  "scEmailExtension": "@ucla.edu",
+  "cstUserType": "Student",
+  "cstTimeout": "5",
+  "cstPrintTimeOut": "60",
+  "cstInstallLogPath": "C:\\Users\\RAJKUM~1\\AppData\\Local\\Temp\\MSI10895.LOG",
+  "cstLogoutPrompt": "0",
+  "cstGuestAccess": "0",
+  "cstIsLabAD": "0",
+  "printTempFilePath": "C:\\Wepa\\temp\\",
+  "printAppPath": "C:\\Wepa\\bin\\"
+}

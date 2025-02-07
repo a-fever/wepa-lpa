@@ -1,0 +1,13 @@
+Package: wepa-lpa
+Version: 2022.12.4-1
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: libgtk-3-0, libnotify4, libnss3, libxss1, libxtst6, xdg-utils, kde-cli-tools | kde-runtime | trash-cli | libglib2.0-bin | gvfs-bin, libcanberra-gtk-module, libcanberra-gtk3-module, cups
+Recommends: pulseaudio | libasound2
+Suggests: gir1.2-gnomekeyring-1.0, libgnome-keyring0, lsb-release
+Installed-Size: 482625
+Maintainer: Raj Batchu <rbatchu@wepanow.com>
+Homepage: https://www.wepanow.com
+Description: WEPA Print Application
+ WEPA Print Application

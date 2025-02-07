@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>wepa Print App</title>
+    <meta name="description" content="wepa is a cloud based, print management solution for student printing in higher
+    education and university settings. The pay-for-print model is ideal for student and guest printing and integration
+    with student directory ensures convenience for students.">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Enable shib auth via an iframe. See ANG-30. -->
+    <!--<script>document.domain = 'wepanow.com'</script>-->
+
+    <link rel="stylesheet" href="styles/styles.css">
+  </head>
+
+  <body ng-app="wepaUI">
+
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Body content loads here -->
+    <div wepa-header></div>
+    <div ng-view></div>
+    <div wepa-footer></div>
+
+    <script>window.$ = window.jQuery = require('jquery');</script>
+    <script src="scripts/scripts.js"></script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo =========================================================================================================
+echo INSTALLING WEPA PRINT APPLICATION
+echo =========================================================================================================
+
+# remove the printer from CUPS
+lpadmin -x wepaColor > /dev/null 2>&1
+lpadmin -x wepaBW > /dev/null 2>&1
+lpadmin -x wepa_Color > /dev/null 2>&1
+lpadmin -x wepa_BW > /dev/null 2>&1
+lpadmin -x wepa_Color_Two_Sided > /dev/null 2>&1
+lpadmin -x wepa_BW_Two_Sided > /dev/null 2>&1
+
+echo =========================================================================================================

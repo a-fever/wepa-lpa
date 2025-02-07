@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo `date` 'Hey! Print job found!' >> /tmp/wepa_file_monitor.log
+cd /usr/lib/wepa-lpa/
+export DISPLAY=:0.0
+xhost +SI:localuser:$USER
+/usr/lib/wepa-lpa/wepa-lpa >> /tmp/wepa_file_monitor.log
+exit 0
+

@@ -1,0 +1,105 @@
+#!/bin/bash
+
+echo =========================================================================================================
+echo INSTALLING WEPA PRINTERS
+echo =========================================================================================================
+
+# create the CUPS backend script
+echo "#!/bin/sh" > /usr/lib/cups/backend/WepaPDFQueue
+echo "FILE=\$6" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "if [ -z "\$FILE" ]" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "then" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "  FILE=-" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "fi" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "echo JOB=\$1 > /var/wepa/metadata/\$1.prn.metadata" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "echo USER=\$2 >> /var/wepa/metadata/\$1.prn.metadata" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "echo TITLE=\$3 >> /var/wepa/metadata/\$1.prn.metadata" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "echo NUMCOPIES=\$4 >> /var/wepa/metadata/\$1.prn.metadata" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "echo OPTIONS=\$5 >> /var/wepa/metadata/\$1.prn.metadata" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "env >> /var/wepa/metadata/\$1.prn.metadata" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "cat \$FILE > /var/wepa/prn/\$1.prn" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "chmod 777 /var/wepa/prn/\$1.prn" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "chmod 777 /var/wepa/metadata/\$1.prn.metadata" >> /usr/lib/cups/backend/WepaPDFQueue
+echo "exit 0" >> /usr/lib/cups/backend/WepaPDFQueue
+
+
+chmod 555 /usr/lib/cups/backend/WepaPDFQueue
+
+# create the WEPA print queue directory
+mkdir /var/wepa
+mkdir /var/wepa/log
+mkdir /var/wepa/metadata
+mkdir /var/wepa/prn
+mkdir /var/wepa/wepaout
+chown -R lp:lp /var/wepa
+chmod -R 777 /var/wepa
+
+
+# install the CUPS printers
+
+lpadmin -p wepa_Color -D "wepa Color" -P /usr/lib/wepa-lpa/resources/app/printers/wepa_color_simplex.ppd -v WepaPDFQueue:/ -E -o printer-is-shared=false  > /dev/null 2>&1
+lpadmin -p wepa_Color_Two_Sided -D "wepa Color Two-Sided" -P /usr/lib/wepa-lpa/resources/app/printers/wepa_color_duplex.ppd -v WepaPDFQueue:/ -E -o printer-is-shared=false  > /dev/null 2>&1
+lpadmin -p wepa_BW -D "wepa BW" -P /usr/lib/wepa-lpa/resources/app/printers/wepa_bw_simplex.ppd -v WepaPDFQueue:/ -E -o printer-is-shared=false  > /dev/null 2>&1
+lpadmin -p wepa_BW_Two_Sided -D "wepa BW Two-Sided" -P /usr/lib/wepa-lpa/resources/app/printers/wepa_bw_duplex.ppd -v WepaPDFQueue:/ -E -o printer-is-shared=false  > /dev/null 2>&1
+
+
+# set default printer
+lpoptions -d wepa_BW
+
+
+# # copy root wrapper
+# cp /usr/lib/wepa-lpa/resources/app/printers/wepaprint /usr/bin/
+# chmod +x /usr/bin/wepaprint
+
+# fix config
+sed -i "/printAppPath/s/^.*$/  \"printAppPath\": \"\/usr\/lib\/wepa-lpa\/\",/" /usr/lib/wepa-lpa/resources/app/config/config.json
+
+# # configure incrond
+# echo "/var/wepa/prn IN_CREATE /usr/bin/wepaprint" > /var/spool/incron/root
+# if [ -f /lib/systemd/system/incron.service ];
+# then
+#   echo root > /etc/incron.allow
+#   systemctl enable incron.service;
+#   systemctl restart incron.service;
+# elif [ -f /usr/lib/systemd/system/incrond.service ];
+# then
+#   echo root > /etc/incron.allow
+#   systemctl enable incrond.service;
+#   systemctl restart incrond.service;
+# fi
+
+# # allow root user to show GUI in Xserver
+# export DISPLAY=:0.0
+# xhost +SI:localuser:root
+# (/usr/bin/wepaprint &)
+
+# setup Gnome autostart
+cat << EOF > /etc/xdg/autostart/wepa-lpa.desktop
+[Desktop Entry]
+Type=Application
+Exec=/usr/lib/wepa-lpa/wepa-lpa %u
+Path=/usr/lib/wepa-lpa
+Icon=/usr/lib/wepa-lpa/resources/app/Icon64.png
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Delay=30
+name[en_US]=WEPA Print App
+Name=WEPA Print App
+Comment[en_US]=
+Comment=
+Categories=GNOME;GTK;Security;Utility;Utilities
+MimeType=x-scheme-handler/wepa-lpa;
+EOF
+
+cp -a /etc/xdg/autostart/wepa-lpa.desktop /usr/share/applications/wepa-lpa.desktop
+
+
+# for i in `ls -1 /home`; do echo $i; mkdir -p /home/$i/Desktop; cp -a /etc/xdg/autostart/wepa-lpa.desktop /home/$i/Desktop/; chown -R $i:$i /home/$i/Desktop; done
+# mkdir /etc/skel/Desktop
+# cp -a /etc/xdg/autostart/wepa-lpa.desktop /home/$i/Desktop/
+
+# env > /tmp/wepa-lpa-env.txt
+
+
+echo =========================================================================================================

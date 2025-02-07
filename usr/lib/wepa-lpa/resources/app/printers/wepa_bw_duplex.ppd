@@ -1,0 +1,220 @@
+*PPD-Adobe: "4.3"
+*%
+*% "$Id: postscript.ppd,v 1.1.1.1 2000/08/24 19:23:13 goffioul Exp $"
+*%
+*%   Sample Postscript driver PPD file for the Common UNIX Printing
+*%   System (CUPS).
+*%
+*%   Michael Goffioul <goffioul@emic.ucl.ac.be>
+*%
+*%   Changes to the original file by Volker Behr, Martin-Eric Racine, 
+*%   Nickolay Kondrashov and other contributors:
+*%   added PrinterIcon support     - 2016-05-27
+*%   added IEEE-1284 device id     - 2008-03-24
+*%   added custom page size        - 2006-05-18
+*%   replaced page descriptions    - 2006-05-18
+*%   InputSlot constraints removed - 2006-05-11
+*%   maxed out imageable regions   - 2006-05-11
+*%   added pstitleiconv filter     - 2006-05-11
+*%   added ledger paper size       - 2006-01-29
+*%   match Adobe specifications    - 2005-12-23
+*%   additional paper formats      - 2005-02-03 and 2005-02-07
+*%   made A4 default paper size    - 2005-02-03
+*%   Color enabled                 - 2003-12-02
+*%
+*FormatVersion:	"4.3"
+*FileVersion:	"1.0"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName:	"wepa_bw_duplex.ppd"
+*Manufacturer:	"WEPA"
+*Product:	"(WEPA PDFWriter v1.0)"
+*ModelName:     "WEPA PDFWriter"
+*ShortNickName: "WEPA PDFWriter"
+*NickName:      "WEPA PDFWriter"
+*1284DeviceID:  "MFG:WEPA;MDL:WEPA PDFWriter;DES:WEPA PDFWriter - Prints documents as PDF files;CLS:PRINTER;CMD:POSTSCRIPT;"
+*cupsFilter:    "application/vnd.cups-pdf 0 -"
+*PSVersion:	"(3016.102) 1"
+*LanguageLevel:	"3"
+*ColorDevice:	True
+*DefaultColorSpace: RGB
+*FileSystem:	False
+*Throughput:	"8"
+*LandscapeOrientation: Plus90
+*TTRasterizer:	Type42
+
+*HWMargins: 0 0 0 0
+*VariablePaperSize: True
+*MaxMediaWidth: 100000
+*MaxMediaHeight: 100000
+*NonUIOrderDependency: 100 AnySetup *CustomPageSize
+*CustomPageSize True: "pop pop pop
+<</PageSize [ 5 -2 roll ] /ImagingBBox null>>setpagedevice"
+*End
+*ParamCustomPageSize Width: 1 points 36 100000
+*ParamCustomPageSize Height: 2 points 36 100000
+*ParamCustomPageSize Orientation: 3 int 0 3
+*ParamCustomPageSize WidthOffset: 4 points 0 0
+*ParamCustomPageSize HeightOffset: 5 points 0 0
+
+*OpenGroup: General/General
+
+*OpenUI *PrintoutMode/Print Quality: PickOne
+*FoomaticRIPOption PrintoutMode: enum Composite A
+*OrderDependency: 10 AnySetup *PrintoutMode
+*DefaultPrintoutMode: High.Gray
+
+*PrintoutMode High/Color: "%% FoomaticRIPOptionSetting: PrintoutMode=High"
+*FoomaticRIPOptionSetting PrintoutMode=High: "PrinterResolution=600x600dpi ColorModel=Color"
+*End
+*PrintoutMode High.Gray/Grayscale: "%% FoomaticRIPOptionSetting: PrintoutMode=High.Gray"
+*FoomaticRIPOptionSetting PrintoutMode=High.Gray: "PrinterResolution=600x600dpi ColorModel=Grayscale"
+*End
+
+*CloseUI: *PrintoutMode
+
+*OpenUI *PageSize/Page Size: PickOne
+*OrderDependency: 100 AnySetup *PageSize
+*DefaultPageSize: US Letter
+*PageSize Letter/US Letter: "<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*PageSize Legal/US Legal: "<</PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 100 AnySetup *PageRegion
+*DefaultPageRegion: US Letter
+*PageRegion Letter/US Letter: "<</PageSize[612 792]/ImagingBBox null>>setpagedevice"
+*PageRegion Legal/US Legal: "<</PageSize[612 1008]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: US Letter
+*ImageableArea Letter/US Letter: "0 0 612 792"
+*ImageableArea Legal/US Legal: "0 0 612 1008"
+
+*DefaultPaperDimension: US Letter
+*PaperDimension Letter/US Letter: "612 792"
+*PaperDimension Legal/US Legal: "612 1008"
+
+
+*OpenUI *PPDNAME/PPDNAME: wepa_bw_duplex
+*CloseUI: *PPDNAME
+
+*% _____ Duplexer definitions _____
+*OpenUI *Duplex/2-Sided Printing: PickOne
+*ja.Translation Duplex/両面印刷: ""
+*de.Translation Duplex/Duplex-Druck: ""
+*es.Translation Duplex/Impresión por las 2 caras: ""
+*fr.Translation Duplex/Impression recto verso: ""
+*it.Translation Duplex/Stampa fronte retro: ""
+*pt_PT.Translation Duplex/Impressão Frente e Verso: ""
+*pt.Translation Duplex/Impressão duplex: ""
+*ko.Translation Duplex/양면 인쇄: ""
+*zh_CN.Translation Duplex/双面打印: ""
+*zh_TW.Translation Duplex/雙面列印: ""
+*nl.Translation Duplex/2-zijdig afdrukken: ""
+*ru.Translation Duplex/Двусторонняя печать: ""
+*OrderDependency: 95.0 DocumentSetup *Duplex
+*DefaultDuplex: DuplexNoTumble
+*Duplex None/Off: "
+ <<
+ /Duplex false /Tumble false /Policies << /Duplex 2 >>
+ >> setpagedevice"
+*End
+*ja.Duplex None/なし: ""
+*de.Duplex None/Aus: ""
+*es.Duplex None/Desactivada: ""
+*fr.Duplex None/Désactivée: ""
+*it.Duplex None/Disattivata: ""
+*pt_PT.Duplex None/Desligado: ""
+*pt.Duplex None/Desativada: ""
+*ko.Duplex None/끔: ""
+*zh_CN.Duplex None/关: ""
+*zh_TW.Duplex None/關: ""
+*nl.Duplex None/Uit: ""
+*ru.Duplex None/Выкл: ""
+*Duplex DuplexNoTumble/Long-Edge binding: "
+ <<
+ /Duplex true /Tumble false /Policies << /Duplex 2 >>
+ >> setpagedevice"
+*End
+*ja.Duplex DuplexNoTumble/長辺とじ: ""
+*de.Duplex DuplexNoTumble/Bindung an der langen Kante: ""
+*es.Duplex DuplexNoTumble/Encuadernación por el borde largo: ""
+*fr.Duplex DuplexNoTumble/Liaison du côté long: ""
+*it.Duplex DuplexNoTumble/Rilegatura bordo lungo: ""
+*pt_PT.Duplex DuplexNoTumble/Encadernação pela borda maior: ""
+*pt.Duplex DuplexNoTumble/Encadernação pela borda maior: ""
+*ko.Duplex DuplexNoTumble/긴 쪽 바인드: ""
+*zh_CN.Duplex DuplexNoTumble/长边翻转: ""
+*zh_TW.Duplex DuplexNoTumble/長邊裝訂: ""
+*nl.Duplex DuplexNoTumble/Inbinden lange zijde: ""
+*ru.Duplex DuplexNoTumble/Продольный переплет: ""
+*Duplex DuplexTumble/Short-Edge binding: "
+ <<
+ /Duplex true /Tumble true /Policies << /Duplex 2 >>
+ >> setpagedevice"
+*End
+*ja.Duplex DuplexTumble/短辺とじ: ""
+*de.Duplex DuplexTumble/Bindung an der kurzen Kante: ""
+*es.Duplex DuplexTumble/Encuadernación por el borde corto: ""
+*fr.Duplex DuplexTumble/Liaison du côté court: ""
+*it.Duplex DuplexTumble/Rilegatura bordo corto: ""
+*pt_PT.Duplex DuplexTumble/Encadernação pela borda menor: ""
+*pt.Duplex DuplexTumble/Encadernação pela borda menor: ""
+*ko.Duplex DuplexTumble/짧은 쪽 바인드: ""
+*zh_CN.Duplex DuplexTumble/短边翻转: ""
+*zh_TW.Duplex DuplexTumble/短邊裝訂: ""
+*nl.Duplex DuplexTumble/Inbinden korte zijde: ""
+*ru.Duplex DuplexTumble/Переплет сверху: ""
+*?Duplex: "
+ currentpagedevice dup /Duplex known{
+ dup /Duplex get{
+ /Tumble get{(DuplexTumble)}{(DuplexNoTumble)}ifelse
+ }{pop (None)}ifelse
+ }{pop (None)}ifelse = flush"
+*End
+*CloseUI: *Duplex
+
+
+*CloseGroup: General
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(001.006S)" Standard ROM
+*Font AvantGarde-Demi: Standard "(001.007S)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(001.007S)" Standard ROM
+*Font Bookman-Demi: Standard "(001.004S)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(001.004S)" Standard ROM
+*Font Bookman-Light: Standard "(001.004S)" Standard ROM
+*Font Bookman-LightItalic: Standard "(001.004S)" Standard ROM
+*Font Courier: Standard "(002.004S)" Standard ROM
+*Font Courier-Bold: Standard "(002.004S)" Standard ROM
+*Font Courier-BoldOblique: Standard "(002.004S)" Standard ROM
+*Font Courier-Oblique: Standard "(002.004S)" Standard ROM
+*Font Helvetica: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(001.007S)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(001.006S)" Standard ROM
+*Font Helvetica-Oblique: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(001.009S)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(001.007S)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(001.006S)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(001.007S)" Standard ROM
+*Font Palatino-Bold: Standard "(001.005S)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Italic: Standard "(001.005S)" Standard ROM
+*Font Palatino-Roman: Standard "(001.005S)" Standard ROM
+*Font Symbol: Special "(001.007S)" Special ROM
+*Font Times-Bold: Standard "(001.007S)" Standard ROM
+*Font Times-BoldItalic: Standard "(001.009S)" Standard ROM
+*Font Times-Italic: Standard "(001.007S)" Standard ROM
+*Font Times-Roman: Standard "(001.007S)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(001.007S)" Standard ROM
+*Font ZapfDingbats: Special "(001.004S)" Standard ROM
+*%
+*% End of "$Id: postscript.ppd,v 1.1.1.1 2000/08/24 19:23:13 goffioul Exp $".
+*%

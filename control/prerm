@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo =========================================================================================================
+echo REMOVING WEPA PRINTERS
+echo =========================================================================================================
+
+# remove the printer from CUPS
+lpadmin -x wepa_Color
+lpadmin -x wepa_BW
+lpadmin -x wepa_Color_Two_Sided
+lpadmin -x wepa_BW_Two_Sided
+
+# remove the CUPS backend script
+rm /usr/lib/cups/backend/WepaPDFQueue
+
+# remove the WEPA queue directory
+rm -rf /var/wepa
+
+
+# rm incron rule
+rm -f /var/spool/incron/root
+
+echo =========================================================================================================

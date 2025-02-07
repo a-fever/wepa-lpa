@@ -1,0 +1,79 @@
+{
+  "name": "wepa-lpa",
+  "productName": "Wepa-LPA",
+  "main": "main.js",
+  "version": "2022.12.4",
+  "private": true,
+  "homepage": "https://www.wepanow.com",
+  "email": "help@wepanow.com",
+  "author": {
+    "name": "Raj Batchu",
+    "email": "rbatchu@wepanow.com",
+    "url": "https://www.wepanow.com"
+  },
+  "license": "UNLICENSED",
+  "description": "WEPA Print Application",
+  "standard": {
+    "globals": [
+      "angular",
+      "$"
+    ]
+  },
+  "devDependencies": {
+    "electron": "3.1.8",
+    "electron-packager": "^13.1.1",
+    "electron-log": "^1.0.19",
+    "electron-reload": "^1.0.2"
+  },
+  "dependencies": {
+    "@chilkat/ck-electron3-centos64": "git@bitbucket.org:wepanow/chilkatcentos.git",
+    "easy-zip": "latest",
+    "jquery": "2.2.4",
+    "sftp-upload": "0.0.6",
+    "electron-notifications": "^0.1.4",
+    "recursive-readdir": "^2.1.1",
+    "wait-on": "^2.0.2",
+    "lazypipe": "1.0.1",
+    "open": "0.0.5",
+    "phantomjs-prebuilt": "2.1.7",
+    "worker-loader": "^2.0.0",
+    "del": "2.2.0",
+    "event-stream": "3.3.2"
+  },
+  "scripts": {
+  "version": "2022.12.4",
+    "dist": "build"
+  },
+  "build": {
+    "appId": "wepa-wpa",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "snap",
+        "rpm",
+        "deb",
+        "zip"
+      ],
+      "category": "Utility"
+    },
+    "win": {
+      "target": [
+        "squirrel",
+        "msi"
+      ]
+    }
+  }
+}

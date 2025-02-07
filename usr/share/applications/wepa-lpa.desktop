@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Wepa-LPA
+Comment=WEPA Print Application
+GenericName=Wepa-LPA
+Exec=wepa-lpa %U
+Icon=wepa-lpa
+Type=Application
+StartupNotify=true
+Categories=Utility;
+
