@@ -2,23 +2,20 @@
 pkgname=wepa-lpa
 pkgver=1
 pkgrel=0
-pkgdesc="Print App"
+pkgdesc="Wepa Print Application"
 arch=(x86_64)
-url=""
+url="www.wepanow.com"
 license=('MIT')
 depends=()
 makedepends=('git')
 provides=()
 conflicts=()
 replaces=()
-options=()
 install=wepa-lpa.install
-changelog=
-source=("$pkgname-$pkgver.tar.gz"
-        "$pkgname-$pkgver.patch")
-noextract=()
-sha256sums=(SKIP)
-validpgpkeys=()
+source=("$pkgname-$pkgver::git://github.com/a-fever/wepa-lpa.git")
+#noextract=()
+sha256sums=('SKIP')
+
 
 #prepare() {
 #	cd "$pkgname-$pkgver"
